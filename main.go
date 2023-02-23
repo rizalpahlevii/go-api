@@ -8,6 +8,7 @@ import (
 	"pznrestfulapi/controller"
 	"pznrestfulapi/exception"
 	"pznrestfulapi/helper"
+	"pznrestfulapi/middleware"
 	"pznrestfulapi/repository"
 	"pznrestfulapi/service"
 )
@@ -25,12 +26,11 @@ func main() {
 	router.POST("/api/categories", categoryController.Create)
 	router.PUT("/api/categories/:categoryId", categoryController.Update)
 	router.DELETE("/api/categories/:categoryId", categoryController.Delete)
-
 	router.PanicHandler = exception.ErrorHandler
 
 	server := http.Server{
-		Addr:    "localhost:3000",
-		Handler: router,
+		Addr:    "localhost:8080",
+		Handler: middleware.NewAuthMiddleware(router),
 	}
 
 	err := server.ListenAndServe()
