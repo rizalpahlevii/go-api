@@ -333,3 +333,6 @@ func TestUnauthorized(t *testing.T) {
 	assert.Equal(t, 401, int(responseBody["code"].(float64)))
 	assert.Equal(t, http.StatusText(http.StatusUnauthorized), responseBody["status"])
 }
+
+// how to run test
+// go test -v -coverprofile=coverage.out
