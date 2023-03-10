@@ -1,13 +1,23 @@
+### Login
+POST http://localhost:8080/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "rizal",
+  "password": "123123"
+}
+
 ### Get all categories
 GET http://localhost:8080/api/categories
 Accept: application/json
-X-API-Key: RAHASIA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzg1NTAxOTksInVzZXJfaWQiOiIxIn0.sP2H3BtZhgpVpI5HZBENS-redo4wkB-TA3i6NX8k8ng
 
 ### Create a new category
 POST http://localhost:8080/api/categories
 Accept: application/json
 Content-Type: application/json
-X-API-Key: RAHASIA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzg1NTAxOTksInVzZXJfaWQiOiIxIn0.sP2H3BtZhgpVpI5HZBENS-redo4wkB-TA3i6NX8k8ng
 
 {
   "name": "Computer"
@@ -16,14 +26,14 @@ X-API-Key: RAHASIA
 ### Get a category
 GET http://localhost:8080/api/categories/100
 Accept: application/json
-X-API-Key: RAHASIA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzg1NTAxOTksInVzZXJfaWQiOiIxIn0.sP2H3BtZhgpVpI5HZBENS-redo4wkB-TA3i6NX8k8ng
 
 
 ### Update a category
 PUT http://localhost:8080/api/categories/2
 Accept: application/json
 Content-Type: application/json
-X-API-Key: RAHASIA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzg1NTAxOTksInVzZXJfaWQiOiIxIn0.sP2H3BtZhgpVpI5HZBENS-redo4wkB-TA3i6NX8k8ng
 
 {
   "name": "Fashion"
@@ -32,4 +42,4 @@ X-API-Key: RAHASIA
 ### Delete a category
 DELETE http://localhost:8080/api/categories/1
 Accept: application/json
-X-API-Key: RAHASIA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzg1NTAxOTksInVzZXJfaWQiOiIxIn0.sP2H3BtZhgpVpI5HZBENS-redo4wkB-TA3i6NX8k8ng

@@ -12,6 +12,14 @@ func ToCategoryResponse(category domain.Category) web.CategoryResponse {
 	}
 }
 
+func ToLoginResponse(user domain.User) web.LoginResponse {
+	return web.LoginResponse{
+		Id:       user.Id,
+		Username: user.Username,
+		Token:    user.Token,
+	}
+}
+
 func ToCategoryResponses(categories []domain.Category) []web.CategoryResponse {
 	var categoryResponses []web.CategoryResponse
 	for _, category := range categories {

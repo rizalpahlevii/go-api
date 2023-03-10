@@ -6,13 +6,19 @@ import (
 	"pznrestfulapi/exception"
 )
 
-func NewRouter(controller controller.CategoryController) *httprouter.Router {
+func NewRouter(
+	categoryController controller.CategoryController,
+	authController controller.AuthController,
+) *httprouter.Router {
 	router := httprouter.New()
-	router.GET("/api/categories", controller.FindAll)
-	router.GET("/api/categories/:categoryId", controller.FindById)
-	router.POST("/api/categories", controller.Create)
-	router.PUT("/api/categories/:categoryId", controller.Update)
-	router.DELETE("/api/categories/:categoryId", controller.Delete)
+	router.GET("/api/categories", categoryController.FindAll)
+	router.GET("/api/categories/:categoryId", categoryController.FindById)
+	router.POST("/api/categories", categoryController.Create)
+	router.PUT("/api/categories/:categoryId", categoryController.Update)
+	router.DELETE("/api/categories/:categoryId", categoryController.Delete)
+
+	router.POST("/api/auth/login", authController.Login)
+	router.POST("/api/auth/logout", authController.Logout)
 	router.PanicHandler = exception.ErrorHandler
 	return router
 }

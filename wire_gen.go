@@ -25,7 +25,10 @@ func InitializedServer() *http.Server {
 	validate := validator.New()
 	categoryServiceImpl := service.NewCategoryService(categoryRepositoryImpl, db, validate)
 	categoryControllerImpl := controller.NewCategoryController(categoryServiceImpl)
-	router := app.NewRouter(categoryControllerImpl)
+	authRepositoryImpl := repository.NewAuthRepository()
+	authServiceImpl := service.NewAuthService(authRepositoryImpl, db, validate)
+	authControllerImpl := controller.NewAuthController(authServiceImpl)
+	router := app.NewRouter(categoryControllerImpl, authControllerImpl)
 	authMiddleware := middleware.NewAuthMiddleware(router)
 	server := NewServer(authMiddleware)
 	return server
@@ -34,3 +37,5 @@ func InitializedServer() *http.Server {
 // injector.go:
 
 var categorySet = wire.NewSet(repository.NewCategoryRepository, wire.Bind(new(repository.CategoryRepository), new(*repository.CategoryRepositoryImpl)), service.NewCategoryService, wire.Bind(new(service.CategoryService), new(*service.CategoryServiceImpl)), controller.NewCategoryController, wire.Bind(new(controller.CategoryController), new(*controller.CategoryControllerImpl)))
+
+var authSet = wire.NewSet(repository.NewAuthRepository, wire.Bind(new(repository.AuthRepository), new(*repository.AuthRepositoryImpl)), service.NewAuthService, wire.Bind(new(service.AuthService), new(*service.AuthServiceImpl)), controller.NewAuthController, wire.Bind(new(controller.AuthController), new(*controller.AuthControllerImpl)))

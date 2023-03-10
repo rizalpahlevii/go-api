@@ -24,13 +24,23 @@ var categorySet = wire.NewSet(
 	wire.Bind(new(controller.CategoryController), new(*controller.CategoryControllerImpl)),
 )
 
+var authSet = wire.NewSet(
+	repository.NewAuthRepository,
+	wire.Bind(new(repository.AuthRepository), new(*repository.AuthRepositoryImpl)),
+	service.NewAuthService,
+	wire.Bind(new(service.AuthService), new(*service.AuthServiceImpl)),
+	controller.NewAuthController,
+	wire.Bind(new(controller.AuthController), new(*controller.AuthControllerImpl)),
+)
+
 func InitializedServer() *http.Server {
 	wire.Build(
 		app.NewDB,
 		validator.New,
 		categorySet,
+		authSet,
 		app.NewRouter,
-		wire.Bind(new(http.Handler), new(*httprouter.Routerr)),
+		wire.Bind(new(http.Handler), new(*httprouter.Router)),
 		middleware.NewAuthMiddleware,
 		NewServer,
 	)

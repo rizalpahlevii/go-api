@@ -16,6 +16,10 @@ func ErrorHandler(writer http.ResponseWriter, request *http.Request, err interfa
 		return
 	}
 
+	if loginError(writer, request, err) {
+		return
+	}
+
 	internalServerError(writer, request, err)
 }
 
@@ -29,6 +33,25 @@ func validationErrors(writer http.ResponseWriter, request *http.Request, err int
 			Code:   http.StatusBadRequest,
 			Status: http.StatusText(http.StatusBadRequest),
 			Data:   exception.Error(),
+		}
+
+		helper.WriteToResponseBody(writer, webResponse)
+		return true
+	} else {
+		return false
+	}
+}
+
+func loginError(writer http.ResponseWriter, request *http.Request, err interface{}) bool {
+	exception, ok := err.(LoginError)
+	if ok {
+		writer.Header().Set("Content-Type", "application/json")
+		writer.WriteHeader(http.StatusUnauthorized)
+
+		webResponse := web.WebResponse{
+			Code:   http.StatusUnauthorized,
+			Status: http.StatusText(http.StatusUnauthorized),
+			Data:   exception.Error,
 		}
 
 		helper.WriteToResponseBody(writer, webResponse)

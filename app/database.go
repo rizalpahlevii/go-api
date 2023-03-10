@@ -16,8 +16,11 @@ import (
 // run down migration
 // migrate -database "mysql://root@tcp(localhost:3306)/golang_api_database_migration" -path db/migration down
 
+// root@tcp(localhost:3306)/go_api
+
 func NewDB() *sql.DB {
-	db, err := sql.Open("mysql", "root@tcp(localhost:3306)/golang_api_database_migration")
+	connectionString := "root@tcp(localhost:3306)/golang_api"
+	db, err := sql.Open("mysql", connectionString)
 	helper.PanicIfError(err)
 
 	db.SetMaxIdleConns(5)

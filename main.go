@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"pznrestfulapi/helper"
 	"pznrestfulapi/middleware"
@@ -14,9 +15,9 @@ func NewServer(authMiddleware *middleware.AuthMiddleware) *http.Server {
 }
 
 func main() {
-
 	server := InitializedServer()
-
+	fmt.Println("Server is running on port: ", server.Addr)
 	err := server.ListenAndServe()
+
 	helper.PanicIfError(err)
 }
